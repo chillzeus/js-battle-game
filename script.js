@@ -37,8 +37,8 @@ const enemy = {
 
 
 function draw() {
-  c.fillStyle = "black";
-  c.fillRect(0, 0, canvas.width, canvas.height);
+  // c.fillStyle = "black";
+  // c.fillRect(0, 0, canvas.width, canvas.height);
 	c.fillStyle = "red";
 	c.fillRect(player.x, player.y, player.width, player.height)
   c.fillStyle = "blue";
@@ -95,11 +95,16 @@ function update() {
   if (player.rightpressed == true) {
     player.x += player.velocity_x;
   }
-  if (player.y < canvas.height - player.height) {
+  if (player.y < 370) {
 		player.velocity_y += gravity;  
   }
-  if (player.y >= canvas.height - player.height) {
+  if (player.y >= 370) {
 		player.velocity_y = 0;
+  }
+  if (player.x < 0) {
+    player.velocity_x = 0;
+    player.x += 6;
+    player.velocity_x = 6;
   }
 
   // for the enemy (or player 2)
@@ -109,11 +114,16 @@ function update() {
   if (enemy.rightpressed == true) {
     enemy.x += enemy.velocity_x;
   }
-  if (enemy.y < canvas.height - enemy.height) {
+  if (enemy.y < 370) {
 		enemy.velocity_y += gravity;  
   }
-  if (enemy.y >= canvas.height - enemy.height) {
+  if (enemy.y >= 370) {
 		enemy.velocity_y = 0;
+  }
+  if (enemy.x < 0) {
+    enemy.velocity_x = 0;
+    enemy.x += 6;
+    enemy.velocity_x = 6;
   }
 }
 
