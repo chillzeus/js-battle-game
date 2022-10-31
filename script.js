@@ -32,8 +32,9 @@ const enemy = {
   "leftpressed": false,
   "rightpressed": false,
   "uppressed": false,
+  "jump": false,
   "velocity_y": 1,
-  "velocity_jump": 4,
+  "velocity_jump": 12,
   "velocity_x": 6,
   "gravity": 0.4,
   "fall_difference": 0.2,
@@ -69,6 +70,10 @@ function keyDownHandler(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
     enemy.rightpressed = true;
   }
+  if (e.key == "Up" || e.key == "ArrowUp") {
+    enemy.uppressed = true;
+    enemy.jump = true;
+  }
 }
 function keyUpHandler(e) {
   if (e.key == "a") {
@@ -78,13 +83,16 @@ function keyUpHandler(e) {
     player.rightpressed = false;
   }
   if (e.key == "w") {
-    player.uppressed = true;
+    player.uppressed = false;
   } 
   if (e.key == "Left" || e.key == "ArrowLeft") {
     enemy.leftpressed = false;
   }
   if (e.key == "Right" || e.key == "ArrowRight") {
     enemy.rightpressed = false;
+  }
+  if (e.key == "Up" || e.key == "ArrowUp") {
+    enemy.uppressed = false;
   }
 }
 
@@ -131,13 +139,6 @@ function update() {
   }
 }
 
-function playerJump() {
-  player.velocity_y = 0;
-  for (let i = 0; i < 80; i++) {
-    player.y += -player.velocity_jump;
-  }
-}
-
 function animate() {
   window.requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height);
@@ -155,6 +156,18 @@ function animate() {
       player.velocity_jump = 12;
       player.velocity_y = 1;
       player.jump = false;
+    }
+  }
+  if (enemy.jump == true) {
+    if (enemy.y > 55) {
+      enemy.velocity_y = 0;
+      enemy.velocity_jump -= enemy.fall_difference;
+      enemy.y += -enemy.velocity_jump;
+    }
+    if (enemy.y <= 55) {
+      enemy.velocity_jump = 12;
+      enemy.velocity_y = 1;
+      enemy.jump = false;
     }
   }
   update();
