@@ -18,9 +18,10 @@ const player = {
   "rightpressed": false,
   "uppressed": false,
   "jump": false,
+  "inair": false,
   "velocity_y": 1,
   "velocity_jump": 12,
-  "velocity_x": 6,
+  "velocity_x": 7,
   "gravity": 0.4,
   "fall_difference": 0.2,
 }
@@ -33,9 +34,10 @@ const enemy = {
   "rightpressed": false,
   "uppressed": false,
   "jump": false,
+  "inair": false,
   "velocity_y": 1,
   "velocity_jump": 12,
-  "velocity_x": 6,
+  "velocity_x": 7,
   "gravity": 0.4,
   "fall_difference": 0.2,
 }
@@ -61,8 +63,10 @@ function keyDownHandler(e) {
     player.rightpressed = true;
   }
   if (e.key == "w") {
-    player.uppressed = true;
-    player.jump = true;
+    if (player.inair == false) {
+      player.uppressed = true;
+      player.jump = true;
+    }
   }
   if (e.key == "Left" || e.key == "ArrowLeft") {
     enemy.leftpressed = true;
@@ -71,8 +75,10 @@ function keyDownHandler(e) {
     enemy.rightpressed = true;
   }
   if (e.key == "Up" || e.key == "ArrowUp") {
-    enemy.uppressed = true;
-    enemy.jump = true;
+    if (enemy.inair == false) {
+      enemy.uppressed = true;
+      enemy.jump = true;
+    }
   }
 }
 function keyUpHandler(e) {
@@ -112,11 +118,17 @@ function update() {
   }
   if (player.y >= 370) {
 		player.velocity_y = 0;
+    player.inair = false;
   }
   if (player.x < 0) {
     player.velocity_x = 0;
     player.x += 6;
-    player.velocity_x = 6;
+    player.velocity_x = 7;
+  }
+  if (player.x > 974) {
+    player.velocity_x = 0;
+    player.x += -6;
+    player.velocity_x = 7;
   }
 
   // for the enemy (or player 2)
@@ -131,11 +143,18 @@ function update() {
   }
   if (enemy.y >= 370) {
 		enemy.velocity_y = 0;
+    // so i know they're not in the air
+    enemy.inair = false;
   }
   if (enemy.x < 0) {
     enemy.velocity_x = 0;
     enemy.x += 6;
-    enemy.velocity_x = 6;
+    enemy.velocity_x = 7;
+  }
+  if (enemy.x > 974) {
+    enemy.velocity_x = 0;
+    enemy.x += -6;
+    enemy.velocity_x = 7;
   }
 }
 
@@ -151,6 +170,7 @@ function animate() {
       player.velocity_y = 0;
       player.velocity_jump -= player.fall_difference;
       player.y += -player.velocity_jump;
+      player.inair = true;
     }
     if (player.y <= 55) {
       player.velocity_jump = 12;
@@ -163,6 +183,7 @@ function animate() {
       enemy.velocity_y = 0;
       enemy.velocity_jump -= enemy.fall_difference;
       enemy.y += -enemy.velocity_jump;
+      enemy.inair = true;
     }
     if (enemy.y <= 55) {
       enemy.velocity_jump = 12;
