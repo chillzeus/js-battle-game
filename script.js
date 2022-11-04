@@ -10,36 +10,20 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 let gravity = 0.2;
 
 const player = {
-	"x": 20,
-  "y": 20,
-  "height": 175,
-  "width": 50,
-  "leftpressed": false,
-  "rightpressed": false,
-  "uppressed": false,
-  "jump": false,
-  "inair": false,
-  "velocity_y": 1,
-  "velocity_jump": 12,
-  "velocity_x": 7,
-  "gravity": 0.4,
-  "fall_difference": 0.2,
+	"x": 20,"y": 20,
+  "height": 150,"width": 75,
+  "leftpressed": false,"rightpressed": false,"uppressed": false,
+  "jump": false,"inair": false,
+  "velocity_y": 1,"velocity_jump": 12,"velocity_x": 7,
+  "gravity": 0.4,"fall_difference": 0.2,
 }
 const enemy = {
-  "x": 934,
-  "y": 20,
-  "height": 175,
-  "width": 50,
-  "leftpressed": false,
-  "rightpressed": false,
-  "uppressed": false,
-  "jump": false,
-  "inair": false,
-  "velocity_y": 1,
-  "velocity_jump": 12,
-  "velocity_x": 7,
-  "gravity": 0.4,
-  "fall_difference": 0.2,
+  "x": 934,"y": 20,
+  "height": 150,"width": 75,
+  "leftpressed": false, "rightpressed": false, "uppressed": false,
+  "jump": false, "inair": false,
+  "velocity_y": 1,"velocity_jump": 12,"velocity_x": 7,
+  "gravity": 0.4,"fall_difference": 0.2,
 }
 
 
