@@ -16,24 +16,36 @@ const player = {
   "jump": false,"inair": false,
   "velocity_y": 1,"velocity_jump": 12,"velocity_x": 7,
   "gravity": 0.4,"fall_difference": 0.2,
+  "idle": "assets/player/Sprite/Idle.png",
 }
 const enemy = {
-  "x": 934,"y": 20,
+  "x": 850,"y": 20,
   "height": 150,"width": 75,
   "leftpressed": false, "rightpressed": false, "uppressed": false,
   "jump": false, "inair": false,
   "velocity_y": 1,"velocity_jump": 12,"velocity_x": 7,
   "gravity": 0.4,"fall_difference": 0.2,
+  "idle": "assets/enemy/Idle-2.png",
 }
 
+let player_img = new Image();
+player_img.src = player.idle;
+player_img.onload = function() {
+  draw();
+};
+let enemy_img = new Image();
+enemy_img.src = enemy.idle;
+enemy_img.onload = function() {
+  draw();
+}
 
 function draw() {
-  // c.fillStyle = "black";
-  // c.fillRect(0, 0, canvas.width, canvas.height);
 	c.fillStyle = "red";
 	c.fillRect(player.x, player.y, player.width, player.height)
+  c.drawImage(player_img, 45, 40, 100, 100, player.x, player.y, 355, 355);
   c.fillStyle = "blue";
 	c.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
+  c.drawImage(enemy_img, enemy.x, enemy.y, 150, 160);
 }
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -106,12 +118,12 @@ function update() {
   }
   if (player.x < 0) {
     player.velocity_x = 0;
-    player.x += 6;
+    player.x += 7;
     player.velocity_x = 7;
   }
   if (player.x > 974) {
     player.velocity_x = 0;
-    player.x += -6;
+    player.x += -7;
     player.velocity_x = 7;
   }
 
@@ -132,12 +144,12 @@ function update() {
   }
   if (enemy.x < 0) {
     enemy.velocity_x = 0;
-    enemy.x += 6;
+    enemy.x += 7;
     enemy.velocity_x = 7;
   }
   if (enemy.x > 974) {
     enemy.velocity_x = 0;
-    enemy.x += -6;
+    enemy.x += -7;
     enemy.velocity_x = 7;
   }
 }
