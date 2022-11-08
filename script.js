@@ -25,7 +25,7 @@ const enemy = {
   "jump": false, "inair": false,
   "velocity_y": 1,"velocity_jump": 12,"velocity_x": 7,
   "gravity": 0.4,"fall_difference": 0.2,
-  "idle": "assets/enemy/Idle-2.png",
+  "idle": "assets/enemy/Idle.png",
 }
 
 let player_img = new Image();
@@ -40,12 +40,12 @@ enemy_img.onload = function() {
 }
 
 function draw() {
-	c.fillStyle = "red";
-	c.fillRect(player.x, player.y, player.width, player.height)
-  c.drawImage(player_img, 45, 40, 100, 100, player.x, player.y, 355, 355);
-  c.fillStyle = "blue";
-	c.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
-  c.drawImage(enemy_img, enemy.x, enemy.y, 150, 160);
+	// c.fillStyle = "red";
+	// c.fillRect(player.x, player.y, player.width, player.height)
+  c.drawImage(player_img, player.x, player.y, 140, 160);
+  // c.fillStyle = "blue";
+	// c.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
+  c.drawImage(enemy_img, enemy.x, enemy.y, 140, 160);
 }
 
 document.addEventListener("keydown", keyDownHandler, false);
