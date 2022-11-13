@@ -11,6 +11,7 @@ let gravity = 0.2;
 
 const player = {
 	"x": 20,"y": 20,
+  "state": "attack",
   "height": 150,"width": 75,
   "leftpressed": false,"rightpressed": false,"uppressed": false,
   "jump": false,"inair": false,
@@ -39,12 +40,15 @@ const enemy = {
   "idle": "assets/enemy/Idle.png",
 }
 
-
 let player_img = new Image();
 player_img.src = player.idle.src;
 player_img.onload = function() {
   draw();
 };
+//loads attack image
+let player_attack = new Image();
+player_attack.src = player.attack.src;
+
 let enemy_img = new Image();
 enemy_img.src = enemy.idle;
 enemy_img.onload = function() {
@@ -54,7 +58,14 @@ enemy_img.onload = function() {
 function draw() {
 	// c.fillStyle = "red";
 	// c.fillRect(player.x, player.y, player.width, player.height)
-  c.drawImage(player_img, player.x, player.y, player.idle.width, player.idle.height);
+  if (player.state == "idle") {
+    c.drawImage(player_img, player.x, player.y, player.idle.width, player.idle.height);
+  }
+  if (player.state == "attack") {
+    c.drawImage(player_attack, player.x, player.y, player.attack.width, player.attack.height)
+  }
+
+
   // c.fillStyle = "blue";
 	// c.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
   c.drawImage(enemy_img, enemy.x, enemy.y, 140, 160);
@@ -178,18 +189,6 @@ function animate() {
   // may need an if statement for the jumps
   player.y += player.velocity_y;
   enemy.y += enemy.velocity_y;
-
-
-  if (player.type == true) {
-    let player_img_attack = new Image();
-    player_img_attack.src = player.attack.src;
-    player_img_attack.onload = function() {
-      drawPlayerAttack();
-    };
-    function drawPlayerAttack() {
-      c.drawImage(player_img_attack, player.x, player.y, 200, 160)
-    }
-  }
 
 
   if (player.jump == true) {
