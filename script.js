@@ -16,8 +16,18 @@ const player = {
   "jump": false,"inair": false,
   "velocity_y": 1,"velocity_jump": 12,"velocity_x": 7,
   "gravity": 0.4,"fall_difference": 0.2,
-  "idle": "assets/player/Sprite/Idle.png",
-}
+  "type": false,
+  "idle": {
+    "src": "assets/player/Idle.png",
+    "width": 140,
+    "height": 160,
+  },
+  "attack": {
+    "src": "assets/player/Attack.png",
+    "width": 200,
+    "height": 160,
+  },
+  }
 const enemy = {
   "x": 850,"y": 20,
   "height": 150,"width": 75,
@@ -25,11 +35,13 @@ const enemy = {
   "jump": false, "inair": false,
   "velocity_y": 1,"velocity_jump": 12,"velocity_x": 7,
   "gravity": 0.4,"fall_difference": 0.2,
+  "attack": false,
   "idle": "assets/enemy/Idle.png",
 }
 
+
 let player_img = new Image();
-player_img.src = player.idle;
+player_img.src = player.idle.src;
 player_img.onload = function() {
   draw();
 };
@@ -42,7 +54,7 @@ enemy_img.onload = function() {
 function draw() {
 	// c.fillStyle = "red";
 	// c.fillRect(player.x, player.y, player.width, player.height)
-  c.drawImage(player_img, player.x, player.y, 140, 160);
+  c.drawImage(player_img, player.x, player.y, player.idle.width, player.idle.height);
   // c.fillStyle = "blue";
 	// c.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
   c.drawImage(enemy_img, enemy.x, enemy.y, 140, 160);
@@ -52,6 +64,7 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
+  //player 1
   if (e.key == "a") {
     player.leftpressed = true;
   }
@@ -64,6 +77,11 @@ function keyDownHandler(e) {
       player.jump = true;
     }
   }
+  if (e.key == "s") {
+    player.type = true;
+  }
+
+  //player 2
   if (e.key == "Left" || e.key == "ArrowLeft") {
     enemy.leftpressed = true;
   }
@@ -160,6 +178,20 @@ function animate() {
   // may need an if statement for the jumps
   player.y += player.velocity_y;
   enemy.y += enemy.velocity_y;
+
+
+  if (player.type == true) {
+    let player_img_attack = new Image();
+    player_img_attack.src = player.attack.src;
+    player_img_attack.onload = function() {
+      drawPlayerAttack();
+    };
+    function drawPlayerAttack() {
+      c.drawImage(player_img_attack, player.x, player.y, 200, 160)
+    }
+  }
+
+
   if (player.jump == true) {
     // 60 works! 
     if (player.y > 55) {
